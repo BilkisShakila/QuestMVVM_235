@@ -5,4 +5,3 @@ data class Siswa(
     val gender : String ="",
     val alamat : String = ""
 )
-}
