@@ -2,11 +2,15 @@ package com.example.pertemuan8.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -20,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.pertemuan8.R
@@ -60,6 +65,58 @@ fun FormSiswa(
                     txtNama = it
                 }
             )
+            HorizontalDivider(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .width(250.dp),
+                thickness = dimensionResource(R.dimen.thickness_divider),
+                color = Color.Blue
+            )
+            Row {
+                pilihanJK.forEach { item ->
+                    Row(modifier = Modifier.selectable(
+                        selected = txtGender == item,
+                        onClick = {
+                            txtGender = item
+                        }
+                    ),
+                        verticalAlignment = Alignment.CenterVertically) {
+                        RadioButton(
+                            selected = txtGender == item,
+                            onClick = {
+                                txtGender = item
+                            }
+                        )
+                        Text(item)
+                    }
+                }
+            }
         }
-
+        HorizontalDivider(
+            modifier = Modifier
+                .padding(5.dp)
+                .width(250.dp),
+            thickness = dimensionResource(R.dimen.thickness_divider),
+            color = Color.Blue
+        )
+        OutlinedTextField(
+            value = txtAlamat,
+            singleLine = true,
+            shape = MaterialTheme.shapes.medium,
+            modifier = Modifier.width(250.dp),
+            label = { Text(text = "Alamat Lengkap") },
+            onValueChange = {
+                txtAlamat = it
+            }
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(
+            modifier = Modifier.fillMaxWidth(1f),
+            enabled = txtAlamat.isNotEmpty(),
+            onClick = { onSubmitButtonClicked(listData) }
+        ) {
+            Text(stringResource(R.string.submit))
+        }
+    }
+}
 }
