@@ -18,6 +18,7 @@ import com.example.pertemuan8.model.DataJK
 import com.example.pertemuan8.model.DataJK.JenisK
 import com.example.pertemuan8.view.FormSiswa
 
+
 enum class Navigasi {
     Formulir,
     Detail
@@ -62,4 +63,10 @@ fun SiswaApp(
             }
         }
     }
+}
+
+private fun cancelAndBackToFormulir(
+    navController: NavHostController
+) {
+    navController.popBackStack(Navigasi.Formulir.name, inclusive = false)
 }
